@@ -4,34 +4,33 @@ const jwt = require("jsonwebtoken");
 
 const protect = asyncHandler(async (req, res, next) => {
   try {
+    // Check if the token is present in cookies
     const token = req.cookies.token;
 
     if (!token) {
-      res.status(401);
-      throw new Error("Not authorized, please login");
+      return res.status(401).json({ error: "Not authorized, please login" });
     }
 
     // Verify Token
     const verified = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!verified) {
-      res.status(401);
-      throw new Error("Token verification failed");
+      return res.status(401).json({ error: "Token verification failed" });
     }
 
-    // Get user id from token
+    // Get user id from token and fetch the user data
     const user = await User.findById(verified.id).select("-password");
 
     if (!user) {
-      res.status(401);
-      throw new Error("User not found");
+      return res.status(401).json({ error: "User not found" });
     }
 
+    // Attach the user object to the request for further handling
     req.user = user;
     next();
   } catch (error) {
     console.error("Authentication error:", error);
-    res.status(401).json({ error: error.message }); // Respond with an error message
+    return res.status(401).json({ error: "Authentication failed" });
   }
 });
 
