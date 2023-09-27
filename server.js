@@ -22,11 +22,12 @@ app.use(bodyParser.json());
 
 // Configure CORS to allow requests from your frontend domain
 const corsOptions = {
-  origin: "https://pinvent-app-front.vercel.app",
+  origin: "https://pinvent-app-front.vercel.app", // Replace with your frontend URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Enable passing cookies, if needed
 };
-app.use(cors(corsOptions)); // Use CORS middleware with the specified options
+
+app.use(cors(corsOptions));
 
 // Serve static files from the "uploads" directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
