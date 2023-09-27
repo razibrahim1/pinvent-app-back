@@ -2,7 +2,7 @@ const dotenv = require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require("cors"); // Import the 'cors' middleware
+const cors = require("cors"); // Import the cors package
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
 const contactRoute = require("./routes/contactRoute");
@@ -21,13 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Configure CORS to allow requests from your frontend domain
-app.use(
-  cors({
-    origin: "https://pinvent-app-front.vercel.app", // Replace with your frontend URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // Enable passing cookies, if needed
-  })
-);
+const corsOptions = {
+  origin: "https://pinvent-app-front.vercel.app", // Replace with your frontend URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable cookies and session data transmission
+};
+
+app.use(cors(corsOptions)); // Use cors middleware with the specified options
 
 // Serve static files from the "uploads" directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
