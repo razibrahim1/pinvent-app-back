@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 // Configure CORS to allow requests from your frontend domain
 app.use(
   cors({
-    origin: "https://pinvent-devqs0rq5-razi-ibrahims-projects.vercel.app", // Replace with your frontend URL
+    origin: "https://pinvent-app-front.vercel.app/", // Replace with your frontend URL
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Enable passing cookies, if needed
   })
