@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://pinvent-app-front.vercel.app'', // Replace with your frontend URL
+  origin: 'https://pinvent-app-front.vercel.app', // Replace with your frontend URL
   credentials: true,
 };
 
