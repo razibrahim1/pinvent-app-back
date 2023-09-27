@@ -37,17 +37,17 @@ const registerUser = asyncHandler(async (req, res) => {
       password,
     });
 
-    // Generate Token
-    const token = generateToken(user._id);
+   // Generate Token
+const token = generateToken(user._id);
 
-    // Send http-only cookie
-    res.cookie("token", token, {
-      path: "/",
-      httpOnly: true,
-      expires: new Date(Date.now() + 1000 * 86400), // 1 day
-      sameSite: "none",
-      secure: true,
-    });
+// Set HTTP-only cookie with secure, sameSite attributes
+res.cookie("token", token, {
+  path: "/", // Allow access across all routes
+  httpOnly: true, // Prevent JavaScript access to the cookie
+  expires: new Date(Date.now() + 1000 * 86400), // 1 day expiration
+  sameSite: "none", // Set to 'none' for cross-site cookies
+  secure: true, // Requires HTTPS
+});
 
     if (user) {
       const { _id, name, email, photo, phone, bio } = user;
